@@ -1,1 +1,5 @@
-export class CreateLibroDto {}
+export class CreateLibroDto {
+  titulo: string;
+  autor: string;
+  disponible: boolean;
+}
