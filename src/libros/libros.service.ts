@@ -15,7 +15,7 @@ export class LibrosService {
     { id: 2, titulo: 'El túnel', autor: 'Sabato', disponible: true },
     { id: 3, titulo: 'Rayuela', autor: 'Cortázar', disponible: false },
   ];
-  private siguienteId: 4;
+  private siguienteId = 4;
 
   private indiceDe(id: number): number {
     const indice = this.libros.findIndex((libro) => libro.id === id);
