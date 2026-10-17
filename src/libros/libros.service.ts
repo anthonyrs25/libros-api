@@ -15,6 +15,7 @@ export class LibrosService {
     { id: 2, titulo: 'El túnel', autor: 'Sabato', disponible: true },
     { id: 3, titulo: 'Rayuela', autor: 'Cortázar', disponible: false },
   ];
+  private siguienteId: 4;
 
   private indiceDe(id: number): number {
     const indice = this.libros.findIndex((libro) => libro.id === id);
@@ -25,7 +26,14 @@ export class LibrosService {
   }
 
   create(createLibroDto: CreateLibroDto) {
-    return 'This action adds a new libro';
+    const nuevo: Libro = {
+      id: this.siguienteId++,
+      titulo: createLibroDto.titulo,
+      autor: createLibroDto.autor,
+      disponible: createLibroDto.disponible,
+    };
+    this.libros.push(nuevo);
+    return nuevo;
   }
 
   findAll(autor?: string) {
@@ -41,11 +49,25 @@ export class LibrosService {
     return this.libros[this.indiceDe(id)];
   }
 
+  replace(id: number, createLibroDto: CreateLibroDto) {
+    const indice = this.indiceDe(id);
+    this.libros[indice] = {
+      id: id,
+      titulo: createLibroDto.titulo,
+      autor: createLibroDto.autor,
+      disponible: createLibroDto.disponible,
+    };
+    return this.libros[indice];
+  }
+
   update(id: number, updateLibroDto: UpdateLibroDto) {
-    return `This action updates a #${id} libro`;
+    const indice = this.indiceDe(id);
+    this.libros[indice] = { ...this.libros[indice], ...updateLibroDto, id: id };
+    return this.libros[indice];
   }
 
   remove(id: number) {
-    return `This action removes a #${id} libro`;
+    const indice = this.indiceDe(id);
+    this.libros.splice(indice, 1);
   }
 }
